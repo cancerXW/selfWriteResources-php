@@ -25,6 +25,9 @@ function net_request($url, $params, $headers, $string = false, $post = false)
     }
     if ($post) {
         $method = 'POST';
+        if (is_array($params) || is_object($params)) {
+            $params = http_build_query($params);
+        }
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
     } else {
